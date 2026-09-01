@@ -1,0 +1,18 @@
+run("Z Project...", "projection=[Max Intensity]");
+rename("ZProj");
+run("Cyan");
+//run("Brightness/Contrast...");
+run("Enhance Contrast", "saturated=0.35");
+run("Next Slice [>]");
+run("Enhance Contrast", "saturated=0.35");
+run("Yellow");
+run("Next Slice [>]");
+run("Enhance Contrast", "saturated=0.35");
+run("Grays");
+run("Next Slice [>]");
+run("Enhance Contrast", "saturated=0.35");
+run("Green");
+run("Next Slice [>]");
+run("Enhance Contrast", "saturated=0.35");
+run("Magenta");
+run("Make Montage...", "columns=3 rows=2 scale=0.50");
