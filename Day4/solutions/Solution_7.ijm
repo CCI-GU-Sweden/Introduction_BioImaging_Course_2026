@@ -6,8 +6,9 @@ close("*");
 // hits: getResult("Round", i), setForegroundColor, roiManager("Draw")
 
 
-data_folder = "C:/Users/xcamra/Desktop/Day4-Data";
-out_dir = data_folder + File.separator + "out";
+data_folder = "C:/Users/xcamra/Documents/Introduction_BioImaging_Course_2026/Day4/data";
+parent_folder = File.getParent(data_folder);
+out_dir = parent_folder + File.separator + "out";
 
 filelist = getFileList(data_folder) 
 for (i = 0; i < lengthOf(filelist); i++) {
@@ -17,7 +18,7 @@ for (i = 0; i < lengthOf(filelist); i++) {
 		run("Bio-Formats Importer", "open="+data_folder + File.separator + tif2load +
 			" autoscale color_mode=Composite rois_import=[ROI manager] view=Hyperstack stack_order=XYCZT");
 		input = getTitle();
-		
+
 		
 		run("Grays");
 		//run("Brightness/Contrast...");
@@ -32,8 +33,8 @@ for (i = 0; i < lengthOf(filelist); i++) {
 		selectImage(input);
 		roiManager("Show None");
 		roiManager("Show All");
-		
-		run("Set Measurements...", "area shape redirect=None decimal=3");
+	
+		run("Set Measurements...", "area center shape redirect=None decimal=3");
 		run("Clear Results");
 		
 		run("Duplicate...", "title=RGB");
@@ -59,6 +60,9 @@ for (i = 0; i < lengthOf(filelist); i++) {
 		    }		
 		}
 		saveAs("tiff", out_dir + File.separator + "RGB_"+ tif2load);
+		
+		saveAs("Results", out_dir + File.separator + "Results_"+ File.getNameWithoutExtension(tif2load) +".csv");
+		
 		close("*");
 			
     }
