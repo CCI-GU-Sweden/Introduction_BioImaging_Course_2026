@@ -31,7 +31,7 @@ The idea is therefore to move from a simple analysis of one image towards a **re
 
 ### Example of the final output
 
-The GIF below is a placeholder for an example solution showing the color-coded results over time:
+The GIF below shows an example solution with the color-coded results over time:
 
 ![Example solution - color-coded cell morphology over time](solutions/sol_7_output.gif)
 
@@ -80,17 +80,28 @@ Overlay the segmentation on the original image in **green**.
 
 **Hints:**
 
-- ROI Manager functions
-- `Draw`
-- Ensure the correct image type (**RGB**)
-- Do not overwrite the originals
-- Save to a desired output folder
+- ROI Manager functions can be used to manage and draw segmented objects.
+- `roiManager("Draw")` can be used to draw ROIs onto an image.
+- Make sure the image is converted to the correct type (**RGB**) before drawing colored overlays.
+- Work on a duplicate or copy so that you do not overwrite the original image.
+- Think about where you want to save the processed output.
 
 Help: [Exercise 3](exercises/Exercise_3.ijm)
 
 ## Exercise 4
 
 Run your segmentation function on **all images in a folder** (batch processing).
+
+**Hints:**
+
+You will need to work with folders and file lists. Useful functions include:
+
+- `getDirectory(...)` – let the user select a folder.
+- `getFileList(folder)` – return a list of files contained in a folder.
+- `lengthOf(list)` – obtain the number of items in a list.
+- `endsWith(filename, ".tif")` – check whether a file has the expected extension.
+- `File.separator` – construct file paths in a way that works across operating systems.
+
 Help: [Exercise 4](exercises/Exercise_4.ijm)
 
 ## Exercise 5
@@ -99,11 +110,16 @@ For a single image, compute the **circularity** of each segmented cell using ROI
 
 **Hints:**
 
+Before measuring, make sure that the desired measurements are enabled in **Analyze > Set Measurements**.
+
+Useful commands include:
+
 ```ijm
 run("Clear Results");
-roiManager("count");
-roiManager("Select", i);
-roiManager("Measure");
+roiManager("count"); // returns the number of ROIs.
+roiManager("Select", i); // selects one ROI.
+roiManager("Measure"); // measures the selected ROI and stores the result in the Results table.
+getResult(...); // can later be used to retrieve individual measurements from the Results table.
 ```
 Help: [Exercise 5](exercises/Exercise_5.ijm)
 
@@ -132,7 +148,36 @@ Help: [Exercise 6](exercises/Exercise_6.ijm)
 
 ## Exercise 7
 
-Combine **batch processing** with **RGB overlays** to produce a video showing cells changing from **"normal"** to **"round"**.
+Combine the complete workflow into a **batch-processing pipeline** that processes all `.tif` images in the dataset.
+
+For each image:
+
+1. Open the image.
+2. Segment the bacterial cells.
+3. Measure the morphology of each segmented cell.
+4. Classify the cells according to their roundness.
+5. Draw the classified cells on an **RGB copy** of the original image:
+   - **green** for cells with a more elongated morphology;
+   - **red** for cells classified as rounded.
+6. Save the RGB overlay image.
+7. Save the quantitative measurements as a `.csv` file.
+
+The resulting RGB images can then be combined into a stack or video to visualize how the cells change from **"normal"** to **"round"** over time.
+
+The `.csv` files provide the corresponding quantitative measurements and can later be used for further analysis.
+
+### Hints
+
+You may find the following ImageJ Macro Language functions useful:
+
+- `File.getParent(path)` – obtain the parent directory of a folder.
+- `File.getNameWithoutExtension(filename)` – obtain a filename without `.tif`, useful when creating output filenames.
+- `saveAs("tiff", path)` – save the RGB visualization.
+- `saveAs("Results", path)` – save the Results table as a `.csv` file.
+- `File.makeDirectory(path)` – create an output folder if it does not already exist.
+
+Try to generate meaningful filenames automatically so that each RGB image and `.csv` file can be traced back to its corresponding input image.
+
 
 Help: [Exercise 7](exercises/Exercise_7.ijm)
 
