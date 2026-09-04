@@ -43,7 +43,9 @@ Verify the installation:
 ```
 git --version
 ```
-Once Git is installed, navigate to https://github.com/CCI-GU-Sweden/Introduction_Bioimaging_Course_2026/Day5
+Once Git is installed, navigate to:
+
+https://github.com/CCI-GU-Sweden/Introduction_Bioimaging_Course_2026/Day5
 
 Click the green **<> Code** button and copy the https link.
 
@@ -82,12 +84,13 @@ During installation:
 
 You can verify the installation by running:
 ```conda --version```
+
 ### macOS
 Download and run the Miniforge installer from:
 
 https://conda-forge.org/download
 
-After installation open a terminal and verify the installation by running:
+After installation open Miniforge Prompt and verify the installation by running:
 ```
 conda --version
 ```
@@ -232,7 +235,7 @@ Use some of the commands in the list below to answer the questions.
 ## Useful conda commands
 * List environments: ```conda env list```
 
-* Show installed packages in environment: ```conda list```. Combine it with ```|``` and ```grep``` to find a specific package: ```conda list | grep dask``` will list information about the package ```dask``` (if it is installed.
+* Show installed packages in environment: ```conda list```. Combine it with ```|``` and ```grep``` to find a specific package: ```conda list | grep dask``` will list information about the package ```dask``` (if it is installed).
 
 * Deactivate environment (go back to base environment): ```conda deactivate``` 
 

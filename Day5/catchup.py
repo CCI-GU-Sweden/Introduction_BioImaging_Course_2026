@@ -71,15 +71,21 @@ pd.pivot_table(
 )
 
 
+# Exercise 6: use concepts from Line 64
+
+
 # Combining two dataframes into one
 df_combined = pd.concat([df_1, df_2], ignore_index=True)
 
 
 # read all the csv files and get the cell count from each of them
+folder = Path("path/to/directory")
+n_csv = len(list(folder.glob("*.csv"))) # get the number of csv files from our folder
+
 all_dfs = [] # initialize an empty list to hold the dataframes
 cell_numbers = [] # initialize an empty list to hold the number of cells in each image
 
-for i in range(64):
+for i in range(n_csv):
     file_number = str(i).zfill(4) # this adds trailing zeros to the number so that it is 4 digits long, e.g. 0000, 0001, 0002, ..., 0063
 
     # read the csv file into a dataframe
@@ -99,4 +105,4 @@ plt.title("Cell count over time")
 plt.show()
 
 
-# Exercise 7: use the concepts from Line 78
+# Exercise 7: use the concepts from Line 81
