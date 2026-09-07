@@ -53,11 +53,12 @@ Now navigate to the directory where you want to store the course files:
 ```
 cd path_to_directory
 ```
-Then run:
+### All users
+Windows users should use Git Bash, rest can use Terminal. Run:
 ```
 git clone <https link>
 ```
-This will create a local copy of the repository on your computer.
+This will create a local copy of the repository on your computer. On Windows, type the "https://" manually and then paste the rest of the link. 
 
 ## What is an environment
 
@@ -120,7 +121,8 @@ conda --version
 
 ## Create a conda environment
 
-Once installed we can create our first environment with the following command:
+Once installed we can create our first environment. Windows users should use Miniforge Prompt, rest can use Terminal. 
+Run the following command:
 ```
 conda create -n name_of_env python==3.11
 ```
@@ -137,8 +139,12 @@ Now your environment is active and the packages installed (and only those) are a
 At the beginning of the terminal prompt you should see (name_of_env). 
 
 ## Installing python modules in your environment
-To install python modules we can use a conda or a program called **pip** . It is preferable to use conda
-to install most packages, however, not all packages are present in conda which is when we will use **pip**.
+
+IMPORTANT! **Always** activate the environment before installing packages. Otherwise, packages may be installed into 
+the wrong Python installation.
+
+To install python modules we can use **conda** or a program called **pip** . It is preferable to use conda
+to install most packages, however, not all packages are present in conda which is when we will use pip.
 For example, if we want to install the package **pandas** we can do so by running
 ```
 conda install pandas
@@ -166,25 +172,14 @@ or
 pip install pandas numpy pillow
 ```
 
-IMPORTANT! **Always** activate the environment before installing packages. Otherwise packages may be installed into the wrong 
-Python installation.
-
 Install the following packages: pandas, numpy, matplotlib, pillow
 
 ### Install jupyter tools
-In a terminal, with your conda environment active, type
+In the same terminal/Miniforge Prompt, with your conda environment active, type
 ```
 conda install jupyterlab ipykernel ipython
 ```
 to install jupyter tools
-
-Start jupyter lab either by typing
-```
-jupyter lab
-```
-Notice that your environment is NOT available as kernel :(
-
-Exit jupyter lab.
 
 ## Making a conda environment available as kernel for jupyter
 
@@ -196,8 +191,11 @@ python -m ipykernel install --user --name=my_env
 ```
 ipython kernel install --user --name=my_env
 ```
-
-Start jupyter lab again and check if something has changed!
+Start Jupyter by typing:
+```
+jupyter lab
+```
+This will open Jupyter in your default browser. When you click the blue + button, you should see your environment listed under "Notebook".
 
 # You are now ready for Day 5!
 
