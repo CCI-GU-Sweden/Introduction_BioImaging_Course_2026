@@ -211,6 +211,17 @@ conda env export --from-history > your_environment.yml
 ```
 This will store the needed data in the file ```your_environment.yml```
 
+Download this environment file to your computer and try to recreate the environment:
+[environment.yml](https://raw.githubusercontent.com/CCI-GU-Sweden/Introduction_BioImaging_Course_2026/main/Day5/environment.yml) (open the link, right click in the browser window then "Save page as")
+
+From the yml file:
+
+* What is the name of the environment?
+* What version of python does it contain?
+* Find a few other packages that are installed in the environment
+* Export the new environment to be used as a kernel in jupyter lab
+* Deactivate all conda environments
+
 In order to create an environment from a file you type, in a terminal:
 ```
 conda env create -f environment.yml
@@ -220,15 +231,6 @@ If the environment gets updated you can run:
 conda env update -f environment.yml
 ``` 
 This will create an environment as specified in the file ```environment.yml```.
-
-Download this environment file to your computer and try to recreate the environment:
-[environment.yml](https://raw.githubusercontent.com/CCI-GU-Sweden/eRImote-python-BIAS-Gtb/refs/heads/main/create_kernel/environment.yml) (by right clicking on the link -> "save link as..." using ```wget``` )
-
-* What is the name of the environment?
-* What version of python does it contain?
-* Find a few other packages that are installed in the environment
-* Export the new environment to be used as a kernel in jupyter lab
-* Deactivate all conda environments
 
 Use some of the commands in the list below to answer the questions.
 
