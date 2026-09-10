@@ -22,44 +22,9 @@ bacteria_mask = segmentBacteria(input_window);
 print("my segmentation is on window: " + bacteria_mask);
 // send object to ROI and remove small objects
 seg2ROI(bacteria_mask, 50);
-
-// make a copy to not remove origina
-rgb_img = "RGB_copy"
-selectImage(input_window);
-run("Duplicate...", "title=" + rgb_img);
-run("RGB Color");
-selectWindow(rgb_img);
-// now we change the colors
-n = roiManager("count");
-run("Clear Results");
-run("Set Measurements...", "shape redirect=None decimal=3");
-for (i = 0; i < n; i++) {
-	// select one object
-    roiManager("select", i);
-    roiManager("Measure");
-    // process roi here
-    // try to print the circularity to the log
-    current_round = getResult("Round");
-    im_round = "NaN";
-    if (current_round>0.7) {
-    	// you are round!
-    	im_round = "YES";
-    	// go RED
-    	setForegroundColor(255, 0, 0);	
-    }else {
-    	im_round = "NO";
-    	// go GREEN
-    	setForegroundColor(0, 255, 0);
-    }
-    // DRAW HERE
-    roiManager("Draw");
-    roiManager("Deselect");
-    print("the value is: " + current_round + im_round);
-    wait(50);
-}
-
-
-
+// now print the ROI objects into a RGB copy og my original data,
+// red will be round, green elongated
+rgb_out = printROIs(input_window);
 
 
 function segmentBacteria(input_img) { 
@@ -101,8 +66,41 @@ function seg2ROI(segmented_image, min_bact_size) {
 	run("Analyze Particles...", "size="+min_bact_size+"-Infinity exclude add");
 }
 
-
 function printROIs(input_image) { 
 // function description
+	// make a copy to not remove original
+	rgb_img = "RGB_copy"
+	selectImage(input_image);
+	run("Duplicate...", "title=" + rgb_img);
+	run("RGB Color");
+	selectWindow(rgb_img);
+	// now we change the colors
+	n = roiManager("count");
+	run("Clear Results");
+	run("Set Measurements...", "shape redirect=None decimal=3");
+	for (i = 0; i < n; i++) {
+		// select one object
+	    roiManager("select", i);
+	    roiManager("Measure");
+	    // process roi here
+	    // try to print the circularity to the log
+	    current_round = getResult("Round");
+	    im_round = "NaN";
+	    if (current_round>0.7) {
+	    	// you are round!
+	    	im_round = "YES";
+	    	// go RED
+	    	setForegroundColor(255, 0, 0);	
+	    }else {
+	    	im_round = "NO";
+	    	// go GREEN
+	    	setForegroundColor(0, 255, 0);
+	    }
+	    // DRAW HERE
+	    roiManager("Draw");
+	    roiManager("Deselect");
+	    print("the value is: " + current_round + im_round);
+	}
+	return rgb_img;
 	
 }
