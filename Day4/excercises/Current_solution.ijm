@@ -17,27 +17,24 @@ run("Grays");
 run("Enhance Contrast", "saturated=0.35");
 
 input_window = getTitle();
+// segment the original image
 bacteria_mask = segmentBacteria(input_window);
-
 print("my segmentation is on window: " + bacteria_mask);
+// send object to ROI and remove small objects
+seg2ROI(bacteria_mask, 50);
 
-min_bact_size = 50;
-// clears info currntly in the ROImanager
-roiManager("reset");
-// I dont want to measure anything
-run("Set Measurements...", "  redirect=None decimal=3");
-// get my "particles"
-selectWindow(bacteria_mask);
-run("Analyze Particles...", "size="+min_bact_size+"-Infinity exclude add");
-// see ROIs in the original image
+// make a copy to not remove origina
+rgb_img = "RGB_copy"
 selectImage(input_window);
-roiManager("Show None");
-roiManager("Show All");
-
+run("Duplicate...", "title=" + rgb_img);
+run("RGB Color");
+selectWindow(rgb_img);
+// now we change the colors
 n = roiManager("count");
 run("Clear Results");
 run("Set Measurements...", "shape redirect=None decimal=3");
 for (i = 0; i < n; i++) {
+	// select one object
     roiManager("select", i);
     roiManager("Measure");
     // process roi here
@@ -47,13 +44,19 @@ for (i = 0; i < n; i++) {
     if (current_round>0.7) {
     	// you are round!
     	im_round = "YES";
+    	// go RED
+    	setForegroundColor(255, 0, 0);	
     }else {
     	im_round = "NO";
+    	// go GREEN
+    	setForegroundColor(0, 255, 0);
     }
-    
+    // DRAW HERE
+    roiManager("Draw");
+    roiManager("Deselect");
     print("the value is: " + current_round + im_round);
+    wait(50);
 }
-
 
 
 
@@ -83,4 +86,23 @@ function segmentBacteria(input_img) {
 	run("Convert to Mask");
 	close(seg_mask);
 	return filtered;
+}
+
+function seg2ROI(segmented_image, min_bact_size) { 
+// This populates the ROI manager
+// min_bact_size is the min size of the objects, it is a number
+	//min_bact_size = 50;
+	// clears info currntly in the ROImanager
+	roiManager("reset");
+	// I dont want to measure anything
+	run("Set Measurements...", "  redirect=None decimal=3");
+	// get my "particles"
+	selectWindow(segmented_image);
+	run("Analyze Particles...", "size="+min_bact_size+"-Infinity exclude add");
+}
+
+
+function printROIs(input_image) { 
+// function description
+	
 }
