@@ -1,0 +1,13 @@
+name: intro_image_analysis
+channels:
+  - conda-forge
+dependencies:
+  - matplotlib
+  - pillow
+  - pandas
+  - scikit-learn
+  - numpy
+  - jupyter
+  - ipykernel
+  - stackview
+  - seaborn

@@ -1,6 +1,7 @@
 # Python environments and kernels
 
-## GIT
+## Step 1: Install Git
+
 Git is a version control system used to track changes in files and collaborate with other people.
 It allows you for example to:
 
@@ -10,7 +11,6 @@ It allows you for example to:
 
 We can use **git** to get all the files needed for the course locally on our machine.
 
-## Install git
 ### Windows
 Install Git from:
 
@@ -43,9 +43,12 @@ Verify the installation:
 ```
 git --version
 ```
-Once Git is installed, navigate to:
 
-https://github.com/CCI-GU-Sweden/Introduction_Bioimaging_Course_2026/Day5
+### Cloning the repository to your computer
+
+Windows users should use Git Bash, rest can use Terminal. Once Git is installed, navigate to:
+
+https://github.com/CCI-GU-Sweden/Introduction_Bioimaging_Course_2026/
 
 Click the green **<> Code** button and copy the https link.
 
@@ -53,13 +56,12 @@ Now navigate to the directory where you want to store the course files:
 ```
 cd path_to_directory
 ```
-Then run:
 ```
 git clone <https link>
 ```
-This will create a local copy of the repository on your computer.
+This will create a local copy of the repository on your computer. On Windows, type the "https://" manually and then paste the rest of the link. 
 
-## What is an environment
+## Step 2: Setting up an environment
 
 An environment is a specific setup of python version, modules and other installed software that can be reused, repeated 
 and distributed. It allows you, in a convenient way, to have multiple versions of python and modules installed.
@@ -67,15 +69,12 @@ Environments can be "activated" when they should be used and "deactivated" when 
 An environment can be stored as a single file and distributed to other people who want to try your experiments or run 
 your code.
 
-A Jupyter kernel is the Python interpreter that Jupyter uses to execute code.
-In practice, we usually create one kernel for each environment, allowing notebooks to run using the packages installed 
-in that specific environment.
-
 ## Download and Install miniforge (conda)
 ### Windows
 Download and run the Miniforge installer from:
 
 https://conda-forge.org/download
+\
 During installation:
 
 - Accept the default options
@@ -118,9 +117,10 @@ verify installation running:
 conda --version
 ```
 
-## Create a conda environment
+## Create the conda environment
 
-Once installed we can create our first environment with the following command:
+Once installed we can create our first environment. Windows users should use Miniforge Prompt, rest can use Terminal. 
+Run the following command:
 ```
 conda create -n name_of_env python==3.11
 ```
@@ -128,17 +128,21 @@ Where ```python==3.11``` means we want a specific version (3.11) of python in th
 and ```name_of_env``` is the name you want to give your environment.
 Use a name that allows you to remember what it is used for.
 
-## Activate an environment
+## Activate the environment
 To activate the environment:
 ```
 conda activate name_of_env
 ```
 Now your environment is active and the packages installed (and only those) are available to you.
-At the beginning of the terminal prompt you should see (name_of_env). 
+At the beginning of the terminal prompt you should see ```(name_of_env)```. 
 
 ## Installing python modules in your environment
-To install python modules we can use a conda or a program called **pip** . It is preferable to use conda
-to install most packages, however, not all packages are present in conda which is when we will use **pip**.
+
+**IMPORTANT! Always activate the environment before installing packages. Otherwise, packages may be installed into 
+the wrong Python installation.**
+
+To install python modules we can use **conda** or a program called **pip** . It is preferable to use conda
+to install most packages, however, not all packages are present in conda which is when we will use pip.
 For example, if we want to install the package **pandas** we can do so by running
 ```
 conda install pandas
@@ -166,29 +170,22 @@ or
 pip install pandas numpy pillow
 ```
 
-IMPORTANT! **Always** activate the environment before installing packages. Otherwise packages may be installed into the wrong 
-Python installation.
+**Install the following packages: pandas, numpy, matplotlib, pillow**
 
-Install the following packages: pandas, numpy, matplotlib, pillow
-
-### Install jupyter tools
-In a terminal, with your conda environment active, type
+## Step 3: Install Jupyter tools
+In the same terminal/Miniforge Prompt, with your conda environment active, type
 ```
 conda install jupyterlab ipykernel ipython
 ```
 to install jupyter tools
 
-Start jupyter lab either by typing
-```
-jupyter lab
-```
-Notice that your environment is NOT available as kernel :(
-
-Exit jupyter lab.
-
 ## Making a conda environment available as kernel for jupyter
 
-With your desired conda environment active, execute the following in a terminal:
+A Jupyter kernel is the Python interpreter that Jupyter uses to execute code.
+In practice, we usually create one kernel for each environment, allowing notebooks to run using the packages installed 
+in that specific environment.
+
+With your desired conda environment active, execute the following in a terminal (Miniforge Prompt for Windows):
 ```
 python -m ipykernel install --user --name=my_env
 ```
@@ -196,8 +193,11 @@ python -m ipykernel install --user --name=my_env
 ```
 ipython kernel install --user --name=my_env
 ```
-
-Start jupyter lab again and check if something has changed!
+Start Jupyter by typing:
+```
+jupyter lab
+```
+This will open Jupyter in your default browser. When you click the blue + button, you should see your environment listed under "Notebook".
 
 # You are now ready for Day 5!
 
@@ -211,6 +211,17 @@ conda env export --from-history > your_environment.yml
 ```
 This will store the needed data in the file ```your_environment.yml```
 
+Download this environment file to your computer and try to recreate the environment:
+[environment.yml](https://raw.githubusercontent.com/CCI-GU-Sweden/Introduction_BioImaging_Course_2026/main/Day5/environment.yml) (open the link, right click in the browser window then "Save page as")
+
+From the yml file:
+
+* What is the name of the environment?
+* What version of python does it contain?
+* Find a few other packages that are installed in the environment
+* Export the new environment to be used as a kernel in jupyter lab
+* Deactivate all conda environments
+
 In order to create an environment from a file you type, in a terminal:
 ```
 conda env create -f environment.yml
@@ -220,15 +231,6 @@ If the environment gets updated you can run:
 conda env update -f environment.yml
 ``` 
 This will create an environment as specified in the file ```environment.yml```.
-
-Download this environment file to your computer and try to recreate the environment:
-[environment.yml](https://raw.githubusercontent.com/CCI-GU-Sweden/eRImote-python-BIAS-Gtb/refs/heads/main/create_kernel/environment.yml) (by right clicking on the link -> "save link as..." using ```wget``` )
-
-* What is the name of the environment?
-* What version of python does it contain?
-* Find a few other packages that are installed in the environment
-* Export the new environment to be used as a kernel in jupyter lab
-* Deactivate all conda environments
 
 Use some of the commands in the list below to answer the questions.
 
